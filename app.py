@@ -39,7 +39,7 @@ async def convert_pages(file: UploadFile = File(...)) -> ConvertPagesResponse:
         count = 0
         while True:
             try:
-                result = pymupdf4llm.to_markdown_pages(temp_file.name, pages=[count])
+                result = pymupdf4llm.to_markdown(temp_file.name, pages=[count])
             except IndexError:
                 break
             results.append(result)
