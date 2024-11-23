@@ -6,7 +6,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 
 import os
-API_TOKEN = os.getenv("API_TOKEN")  # Si non défini, la protection est désactivée
+API_TOKEN = os.getenv("API_TOKEN") # If not set, protection is disabled
 
 class ConvertResponse(BaseModel):
     text: str | None = None
