@@ -25,7 +25,7 @@ services:
     image: devpartitech/pymupdf4llm-api:latest
     container_name: pymupdf4llm-service
     ports:
-      - "60002:8000" # Expose le port 60002 pour accéder à l'API
+      - "60002:8000" # Expose port 60002 to access the API
     environment:
       - API_TOKEN=578910
 ```
