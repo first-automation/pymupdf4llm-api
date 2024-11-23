@@ -8,3 +8,8 @@ dependencies = [
     "fastapi[standard]>=0.115.5",
     "pymupdf4llm>=0.0.17",
 ]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.8.0",
+]

@@ -1,12 +1,13 @@
+import os
 import tempfile
 
 import pymupdf4llm
-from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 
-import os
-API_TOKEN = os.getenv("API_TOKEN") # If not set, protection is disabled
+API_TOKEN = os.getenv("API_TOKEN")  # If not set, protection is disabled
+
 
 class ConvertResponse(BaseModel):
     text: str | None = None
@@ -20,6 +21,7 @@ app = FastAPI()
 
 security = HTTPBearer()
 
+
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """
     Checks if the token matches the API token.
@@ -32,12 +34,14 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
             headers={"WWW-Authenticate": "Bearer"},
         )
 
+
 def optional_auth(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """
     Enables token verification only if API_TOKEN is set.
     """
     if API_TOKEN:
         verify_token(credentials)
+
 
 @app.get("/")
 async def root():
