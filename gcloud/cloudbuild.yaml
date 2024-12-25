@@ -1,0 +1,10 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', '$_DOCKER_IMAGE_URL', '.']
+# Push the container image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '$_DOCKER_IMAGE_URL']
+# Deploy container image to Cloud Run
+- name: gcr.io/cloud-builders/gcloud
+  args: ['run', 'deploy', 'pymupdf4llm-api', '--image=$_DOCKER_IMAGE_URL', '--region=$_CLOUDRUN_LOCATION', '--service-account=$_CLOUDRUN_SERVICE_ACCOUNT_NAME']
